@@ -1,0 +1,25 @@
+ How to Run Everything
+Federated Training:
+bash
+Copy
+Edit
+python federated/federated_server.py
+Detection :
+bash
+Copy
+Edit
+python detection/ticket_analyzer.py --input_csv new_logs.csv
+Testing:
+bash
+Copy
+Edit
+pytest tests/
+Docker:
+bash
+Copy
+Edit
+docker build -t federated-apt .
+docker run federated-apt
+ CI/CD (Auto on Push):
+Commits to main trigger tests + scans via GitHub Actions.
+
