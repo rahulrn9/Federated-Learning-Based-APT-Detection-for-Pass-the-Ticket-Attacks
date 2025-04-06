@@ -1,0 +1,23 @@
+federated:
+  clients:
+    - data/client1
+    - data/client2
+  rounds: 1
+  aggregation: simple
+
+model:
+  type: RandomForest
+  save_path: models/global_model.pkl
+
+data:
+  features:
+    - src_ip
+    - dst_ip
+    - ticket_size
+    - validity
+    - logon_count
+You can load it in Python like this:
+import yaml
+
+with open("config/settings.yaml", "r") as f:
+    settings = yaml.safe_load(f)
