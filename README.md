@@ -1,1 +1,8 @@
-# Federated-Learning-Based-APT-Detection-for-Pass-the-Ticket-Attacks
+ File:
+test_federated.py: Tests local training and model saving/loading
+
+ Run Tests:
+bash
+Copy
+Edit
+pytest tests/
