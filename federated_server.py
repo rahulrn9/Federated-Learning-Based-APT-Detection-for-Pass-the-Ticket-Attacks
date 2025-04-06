@@ -1,24 +1,27 @@
 import os
-import argparse
-from models.client_model import ClientModel
-from models.utils import load_data
+from federated.federated_client import train_local_model
+from models.global_model import GlobalModel
+import joblib
 
-def train_local_model(client_dir):
+def aggregate_models(local_models):
     """
-    Trains a local model using the client's log data.
+    Basic placeholder for aggregation — picks the first model.
+    In real federated learning, you'd average model weights (e.g., FedAvg).
     """
-    data_path = os.path.join(client_dir, "event_logs.csv")
-    X, y = load_data(data_path)
+    print("[!] Aggregating models — using first model as global (simplified).")
+    return local_models[0]
+
+def federated_training():
+    client_dirs = ["data/client1", "data/client2"]  # Can expand to more clients
     
-    model = ClientModel()
-    model.train(X, y)
+    local_models = []
+    for client_dir in client_dirs:
+        model = train_local_model(client_dir)
+        local_models.append(model)
     
-    print(f"[✓] Trained local model for {client_dir}")
-    return model
+    global_model = aggregate_models(local_models)
+    global_model.save()
+    print("[✓] Federated training complete. Global model saved to models/global_model.pkl")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--client_dir", type=str, required=True, help="Path to client data folder (e.g., data/client1)")
-    args = parser.parse_args()
-    
-    train_local_model(args.client_dir)
+    federated_training()
